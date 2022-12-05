@@ -1,0 +1,20 @@
+﻿@page "/"
+
+@inject NavigationManager NavManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@code {
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var a = await localStorage.GetItemAsync<string>("URL");
+        if (a == null || a =="" )
+        {
+            NavManager.NavigateTo("/home");
+        }
+        else
+        {
+            NavManager.NavigateTo(a);
+        }
+        
+    }
+}

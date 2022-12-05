@@ -1,0 +1,29 @@
+﻿@page "/counter"
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private string currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.Uri;
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await localStorage.SetItemAsync("URL", currentUrl);        
+    }
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
